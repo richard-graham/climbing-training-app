@@ -59,9 +59,9 @@ export const exercises = [
     title: 'Core',
     time: '',
     description: '',
-    list: ['Extreme plank [ 10 reps x 3 sets with 2 minutes rest ]', 'Iron cross [ 10 reps x 3 sets with 2 min. rest ] – As extreme plank but spread arms/legs wide', 'Leg paddles [ 50 reps x 3 with 2 mins. rest ]']
+    list: ['Extreme plank [ 10 reps x 3 sets with 2 minutes rest ]', 'Iron cross [ 10 reps x 3 sets with 2 min. rest ] – As extreme plank but spread arms/legs wide', 'Leg paddles [ 50 reps x 3 with 2 mins. rest ]'],
     phase: '1',
-    group: 'Antagonists & Core',
+    group: 'Antagonists & Core', 
   },
   {
     id: '8',
