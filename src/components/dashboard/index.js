@@ -6,7 +6,6 @@ import InfoPanel from './InfoPanel'
 const styles  = {
   Paper: {
     padding: 20,
-    margin: 10
   }
 }
 
