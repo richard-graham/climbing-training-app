@@ -7,7 +7,7 @@ import { groups, exercises } from './store'
 class App extends Component {
   state = {
     exercises,
-    selectedExercise: {}
+    selectedExercise: {},
   }
 
   getExercisesByGroups() {
@@ -35,14 +35,30 @@ class App extends Component {
   }
 
   handleExerciseDelete = id => {
-    this.setState(({ exercises }) => ({ // 
+    this.setState(({ exercises }) => ({ 
       exercises: exercises.filter(ex => ex.id !== id ) // filters out instances where the exercise id is the same as the id passed in
+    }))
+  }
+
+  handleExerciseEdit = exercise => {
+    this.setState(({ exercises }) => ({ // exercises = prevState
+      exercises: [
+        ...exercises.filter(ex => ex.id !== exercise.id),
+        exercise
+      ]
     }))
   }
 
   handleExerciseSelect = id => {
     this.setState(({ exercises }) => ({ // grabs exercises (an array of all the exercises) from state as 'prevState' as setState is asynchronous and something else in the app may change state while we are calling it
       selectedExercise: exercises.find(ex => ex.id === id)
+    }))
+  }
+
+  handleExerciseSelectEdit = id => {
+    this.setState(({ exercises }) => ({ // same as handleExerciseSelect except changes editMode
+      selectedExercise: exercises.find(ex => ex.id === id),
+      editMode: true
     }))
   }
 
@@ -54,7 +70,7 @@ class App extends Component {
  
   render() {
     const exercises = this.getExercisesByGroups(),
-    { selectedGroup, selectedExercise } = this.state
+    { editMode, selectedExercise, selectedGroup } = this.state
     
     return (
       <Fragment>
@@ -62,11 +78,14 @@ class App extends Component {
           groups={groups}
           onExerciseCreate={this.handleExerciseCreate}
         />
-
         <Exercises 
+          editMode={editMode}
           exercises={exercises} 
+          groups={groups}
           onDelete={this.handleExerciseDelete}
+          onEdit={this.handleExerciseEdit}
           onSelect={this.handleExerciseSelect}
+          onSelectEdit={this.handleExerciseSelectEdit}
           selectedExercise={selectedExercise}
           selectedGroup={selectedGroup}
         />
