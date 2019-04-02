@@ -22,7 +22,8 @@ class Create extends Component {
   }
 
   render() {
-    const { open } = this.state
+    const { open } = this.state,
+          { groups, onCreate } = this.props
 
     return (
       <Fragment>
@@ -41,6 +42,8 @@ class Create extends Component {
               Please fill out the form below.
             </DialogContentText>
             <Form 
+              groups={groups}
+              onSubmit={onCreate}
             />
           </DialogContent>
         </Dialog>

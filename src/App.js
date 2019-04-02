@@ -7,7 +7,7 @@ import { groups, exercises } from './store'
 class App extends Component {
   state = {
     exercises,
-    selectedExercise: {},
+    exercise: {},
   }
 
   getExercisesByGroups() {
@@ -43,21 +43,21 @@ class App extends Component {
   handleExerciseEdit = exercise => {
     this.setState(({ exercises }) => ({ // exercises = prevState
       exercises: [
-        ...exercises.filter(ex => ex.id !== exercise.id),
-        exercise
+        ...exercises.filter(ex => ex.id !== exercise.id), // remove old instance of exercise
+        exercise // replace it with the new version
       ]
     }))
   }
 
   handleExerciseSelect = id => {
     this.setState(({ exercises }) => ({ // grabs exercises (an array of all the exercises) from state as 'prevState' as setState is asynchronous and something else in the app may change state while we are calling it
-      selectedExercise: exercises.find(ex => ex.id === id)
+      exercise: exercises.find(ex => ex.id === id)
     }))
   }
 
   handleExerciseSelectEdit = id => {
     this.setState(({ exercises }) => ({ // same as handleExerciseSelect except changes editMode
-      selectedExercise: exercises.find(ex => ex.id === id),
+      exercise: exercises.find(ex => ex.id === id),
       editMode: true
     }))
   }
@@ -70,7 +70,7 @@ class App extends Component {
  
   render() {
     const exercises = this.getExercisesByGroups(),
-    { editMode, selectedExercise, selectedGroup } = this.state
+    { editMode, exercise, selectedGroup } = this.state
     
     return (
       <Fragment>
@@ -86,7 +86,7 @@ class App extends Component {
           onEdit={this.handleExerciseEdit}
           onSelect={this.handleExerciseSelect}
           onSelectEdit={this.handleExerciseSelectEdit}
-          selectedExercise={selectedExercise}
+          exercise={exercise}
           selectedGroup={selectedGroup}
         />
         

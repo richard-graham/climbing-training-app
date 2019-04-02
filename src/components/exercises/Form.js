@@ -19,12 +19,18 @@ const styles = theme => ({
 })
 
 class Form extends Component {
-  state = {
-    title: '',
-    time: '',
-    description: '',
-    phase: '',
-    group: '',
+  state = this.getInitState()
+
+  getInitState() {
+    const { exercise } = this.props
+
+    return exercise ? exercise : {
+      title: '',
+      time: '',
+      description: '',
+      phase: '',
+      group: '',
+    }
   }
 
   handleChange = name => event => {

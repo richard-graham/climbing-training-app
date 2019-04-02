@@ -24,17 +24,18 @@ const styles  = {
 
 export default ({ 
   editMode,
+  exercise,
+  exercise: {
+    id, 
+    title = 'Welcome!', 
+    description = 'Please select an exercise from the list on the left'
+  }, 
   exercises, 
   groups,
   onDelete,
   onEdit,
   onSelect, 
   onSelectEdit,
-  selectedExercise: {
-    id, 
-    title = 'Welcome!', 
-    description = 'Please select an exercise from the list on the left'
-  }, 
   selectedGroup 
 }) =>
   <Grid container>
@@ -80,6 +81,7 @@ export default ({
       <Paper style={styles.Paper}>
         {editMode
         ? <Form 
+            exercise={exercise}
             groups={groups} 
             onSubmit={onEdit}
           />
