@@ -43,7 +43,9 @@ class App extends Component {
     
     return (
       <Fragment>
-        <Header />
+        <Header 
+          groups={groups}
+        />
 
         <Exercises 
           exercises={exercises} 

@@ -6,27 +6,55 @@ import {
   DialogContentText, 
   DialogActions, 
   Button,
+  TextField,
+  InputAdornment,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
 
 class Create extends Component {
   state = {
-    open: false 
+    open: false,
+    exercise: {
+      title: '',
+      time: '',
+      description: '',
+      phase: '',
+      group: '',
+    }
+  }
+
+  handleChange = name => event => {
+    this.setState({
+      exercise: {
+        ...this.state.exercise,
+        [name]: event.target.value
+      }
+    })
+  }
+
+  handleToggle = () => {
+    this.setState({
+      open: !this.state.open
+    })
   }
 
   render() {
-    const { open } = this.state
+    const { open, exercise: { title, time, description, phase, group } } = this.state
+    const { groups } = this.props
 
     return (
       <Fragment>
-        <Button variant='fab' color='primary' mini>
+        <Button variant='fab' onClick={this.handleToggle} mini>
           <AddIcon />
         </Button>
         <Dialog
               open={open}
-              onClose={this.handleClose}
-              aria-labelledby="form-dialog-title"
+              onClose={this.handleToggle}
         >
           <DialogTitle id="form-dialog-title">
             Create a New Exercise
@@ -35,12 +63,48 @@ class Create extends Component {
             <DialogContentText>
               Please fill out the form below.
             </DialogContentText>
-            <form>
-                
-            </form>
+            <FormControl>
+              <TextField
+                label="Title"
+                value={title}
+                onChange={this.handleChange('title')}
+                margin="normal"
+              /><br />
+              <TextField
+                type='number'
+                label="Time"
+                value={time}
+                onChange={this.handleChange('time')}
+                margin="normal"
+                InputProps={{
+                  startAdornment: <InputAdornment position="start">Minutes</InputAdornment>,
+                }}
+              /><br />
+              <TextField
+                label="Description"
+                value={description}
+                onChange={this.handleChange('description')}
+                margin="normal"
+                multiline
+              /><br />
+              <FormControl>
+                <InputLabel htmlFor="group">Training Type</InputLabel>
+                <Select
+                  value={group}
+                  onChange={this.handleChange('group')}
+                >
+                  {groups.map(group => {
+                    return <MenuItem value={group}>
+                      {group}
+                    </MenuItem>
+                  })}
+          </Select>
+        </FormControl>
+
+            </FormControl>
           </DialogContent>
           <DialogActions>
-            <Button color="primary">
+            <Button color="primary" variant='raised' >
               Create
             </Button>
           </DialogActions>
