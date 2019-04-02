@@ -23,18 +23,28 @@ class App extends Component {
     )
   }
 
+  handleGroupSelected = selectedGroup => {
+    this.setState({
+       selectedGroup
+    })
+  }
+ 
   render() {
-    const exercises = this.getExercisesByGroups()
+    const exercises = this.getExercisesByGroups(),
+    { selectedGroup } = this.state
     return (
       <Fragment>
         <Header />
 
         <Exercises 
+          selectedGroup={selectedGroup}
           exercises={exercises} 
         />
         
         <Footer 
+          selectedGroup={selectedGroup}
           groups={groups}
+          onSelect={this.handleGroupSelected}
         />
       </Fragment>
     );
