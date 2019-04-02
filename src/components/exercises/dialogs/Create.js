@@ -11,7 +11,8 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  Select
+  Select,
+  Fab
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add'
 import { withStyles } from '@material-ui/core/styles'
@@ -50,7 +51,22 @@ class Create extends Component {
 
     const { exercise } = this.state
 
-    this.props.onCreate(exercise)
+    this.props.onCreate({
+      ...exercise,
+      id: exercise.title.toLowerCase().replace(/ /g, '-')
+    })
+
+    this.setState({
+      open: false,
+      exercise: {
+        title: '',
+        time: '',
+        description: '',
+        phase: '',
+        group: '',
+      }
+    })
+
   }
 
   handleToggle = () => {
@@ -65,9 +81,9 @@ class Create extends Component {
 
     return (
       <Fragment>
-        <Button variant='fab' onClick={this.handleToggle} mini>
+        <Fab onClick={this.handleToggle} size='medium' color="secondary" >
           <AddIcon />
-        </Button>
+        </Fab>
         <Dialog
               open={open}
               onClose={this.handleToggle}
@@ -115,7 +131,7 @@ class Create extends Component {
                   onChange={this.handleChange('group')}
                 >
                   {groups.map(group => {
-                    return <MenuItem value={group}>
+                    return <MenuItem value={group} key={group} >
                       {group}
                     </MenuItem>
                   })}
@@ -126,7 +142,7 @@ class Create extends Component {
           <DialogActions>
             <Button 
               color="primary" 
-              variant='raised' 
+              variant='contained' 
               onClick={this.handleSubmit}
             >
               Create
