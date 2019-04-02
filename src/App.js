@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   handleGroupSelected = selectedGroup => {
-    this.setState({
+    this.setState({ 
        selectedGroup
     })
   }
@@ -32,6 +32,7 @@ class App extends Component {
   render() {
     const exercises = this.getExercisesByGroups(),
     { selectedGroup } = this.state
+    
     return (
       <Fragment>
         <Header />

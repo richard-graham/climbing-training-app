@@ -10,30 +10,34 @@ const styles  = {
   }
 }
 
-export default ({ exercises }) =>
+export default ({ exercises, selectedGroup }) =>
   <Grid container>
     <Grid item sm>
       <Paper style={styles.Paper}>
-        {exercises.map(([group, exercises]) => {
-          return (
-          <React.Fragment>
-            <Typography
-              variant='headline'
-            >
-              {group}
-            </Typography>
-            <List component="ul">
-              {exercises.map(({ title }) => {
-                 return (
-                  <ListItem button>
-                    <ListItemText primary={title} />
-                  </ListItem>
-                 )
-              })}
-            </List>
-          </React.Fragment>
-          )
-        })}
+        {exercises.map(([group, exercises]) => { // group = group name (i.e Conditioning & Flexibility) exercises = entries that have group value that equals group name
+          
+          return !selectedGroup || selectedGroup === group // only display when selectedGroup is not specified (i.e the All tab is selected) OR selectedGroup and group are equal 
+          ? <React.Fragment>
+              <Typography
+                variant='headline'
+              >
+                {group}
+              </Typography>
+              <List component="ul">
+                {exercises.map(({ title }) => {
+                  console.log(group);
+                  console.log(selectedGroup);
+                  return (
+                    <ListItem button>
+                      <ListItemText primary={title} />
+                    </ListItem>
+                  )
+                })}
+              </List>
+            </React.Fragment>
+          : null
+            }
+        )}
     </Paper>
     </Grid>
     <Grid item sm>

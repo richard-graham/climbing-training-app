@@ -10,7 +10,6 @@ export default ({ groups, onSelect, selectedGroup }) => {
     onSelect(index === 0 ? '' : groups[index - 1])
   }
   
-
   return (
     <Paper>
       <Tabs
