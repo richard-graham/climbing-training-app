@@ -10,25 +10,36 @@ const styles  = {
   }
 }
 
-export default ({ exercises, selectedGroup }) =>
+export default ({ 
+  exercises, 
+  onSelect, 
+  selectedExercise: {
+    id, 
+    title = 'Welcome!', 
+    description = 'Please select an exercise from the list on the left'
+  }, 
+  selectedGroup 
+}) =>
   <Grid container>
     <Grid item sm>
       <Paper style={styles.Paper}>
-        {exercises.map(([group, exercises]) => { // group = group name (i.e Conditioning & Flexibility) exercises = entries that have group value that equals group name
+        {exercises.map(([group, exercises]) => { // group = group name (i.e Conditioning & Flexibility) exercises = array of objects which are entries that have group value that equals group name
           
           return !selectedGroup || selectedGroup === group // only display when selectedGroup is not specified (i.e the All tab is selected) OR selectedGroup and group are equal 
-          ? <React.Fragment>
+          ? <React.Fragment key={group} >
               <Typography
                 variant='headline'
               >
                 {group}
               </Typography>
               <List component="ul">
-                {exercises.map(({ title }) => {
-                  console.log(group);
-                  console.log(selectedGroup);
+                {exercises.map(({ id, title }) => { // the same as saying exercise.id and exercise.title
                   return (
-                    <ListItem button>
+                    <ListItem 
+                      key={id}
+                      button
+                      onClick={() => onSelect(id)}
+                    >
                       <ListItemText primary={title} />
                     </ListItem>
                   )
@@ -45,13 +56,13 @@ export default ({ exercises, selectedGroup }) =>
           <Typography
             variant='display1'
            >
-            Welcome!
+            {title}
           </Typography>
           <Typography
             variant='subheading'
             style={{marginTop: 20}}
            >
-            Please select an exercise from the list on the left
+            {description}
           </Typography>
       </Paper>
     </Grid>

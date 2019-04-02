@@ -21,7 +21,7 @@ export default ({ groups, onSelect, selectedGroup }) => {
       >
         <Tab label='All' />
         {groups.map(group => {
-          return <Tab label={group} />
+          return <Tab key={group} label={group} />
         })}
       </Tabs>
     </Paper>

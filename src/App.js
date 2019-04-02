@@ -6,21 +6,29 @@ import { groups, exercises } from './store'
 
 class App extends Component {
   state = {
-    exercises
+    exercises,
+    selectedExercise: {}
   }
 
   getExercisesByGroups() {
-    return Object.entries( // converts to an array where the first element is the key and the second element is the value (array of objects)
-        this.state.exercises.reduce((exercises, exercise) => {
+
+    return Object.entries( 
+        this.state.exercises.reduce((exercises, exercise) => { 
           const { group } = exercise
-          // Check to see if exercise group exists in array and acts accordingly
-          exercises[group] = exercises[group] 
-            ? [...exercises[group], exercise]
+
+          exercises[group] = exercises[group] // Check to see if exercise group exists in array and acts accordingly
+            ? [...exercises[group], exercise] 
             : [exercise] 
 
-          return exercises
+          return exercises // creates an object where the key is the group and the value is an array of the objects that apply to it
       }, {})
     )
+  }
+
+  handleExerciseSelected = id => {
+    this.setState(({ exercises }) => ({ // grabs exercises from state as 'prevState' as setState is asynchronous and something else in the app may change state while we are calling it
+      selectedExercise: exercises.find(ex => ex.id === id)
+    }))
   }
 
   handleGroupSelected = selectedGroup => {
@@ -31,15 +39,17 @@ class App extends Component {
  
   render() {
     const exercises = this.getExercisesByGroups(),
-    { selectedGroup } = this.state
+    { selectedGroup, selectedExercise } = this.state
     
     return (
       <Fragment>
         <Header />
 
         <Exercises 
-          selectedGroup={selectedGroup}
           exercises={exercises} 
+          onSelect={this.handleExerciseSelected}
+          selectedExercise={selectedExercise}
+          selectedGroup={selectedGroup}
         />
         
         <Footer 
