@@ -25,13 +25,22 @@ class App extends Component {
     )
   }
 
-  handleExerciseSelected = id => {
+  handleExerciseCreate = exercise => {
+    this.setState(({ exercises }) => ({
+      exercises: [
+        ...exercises,
+        exercise
+      ]
+    }))
+  }
+
+  handleExerciseSelect = id => {
     this.setState(({ exercises }) => ({ // grabs exercises from state as 'prevState' as setState is asynchronous and something else in the app may change state while we are calling it
       selectedExercise: exercises.find(ex => ex.id === id)
     }))
   }
 
-  handleGroupSelected = selectedGroup => {
+  handleGroupSelect = selectedGroup => {
     this.setState({ 
        selectedGroup
     })
@@ -45,11 +54,12 @@ class App extends Component {
       <Fragment>
         <Header 
           groups={groups}
+          onExerciseCreate={this.handleExerciseCreate}
         />
 
         <Exercises 
           exercises={exercises} 
-          onSelect={this.handleExerciseSelected}
+          onSelect={this.handleExerciseSelect}
           selectedExercise={selectedExercise}
           selectedGroup={selectedGroup}
         />
@@ -57,7 +67,7 @@ class App extends Component {
         <Footer 
           selectedGroup={selectedGroup}
           groups={groups}
-          onSelect={this.handleGroupSelected}
+          onSelect={this.handleGroupSelect}
         />
       </Fragment>
     );

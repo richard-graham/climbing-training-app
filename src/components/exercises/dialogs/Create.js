@@ -13,7 +13,15 @@ import {
   MenuItem,
   Select
 } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+import AddIcon from '@material-ui/icons/Add'
+import { withStyles } from '@material-ui/core/styles'
+
+const styles = theme => ({
+  FormControl: {
+    width: 500,
+
+  }
+})
 
 
 class Create extends Component {
@@ -37,6 +45,14 @@ class Create extends Component {
     })
   }
 
+  handleSubmit = () => {
+    // TODO: Validate Form
+
+    const { exercise } = this.state
+
+    this.props.onCreate(exercise)
+  }
+
   handleToggle = () => {
     this.setState({
       open: !this.state.open
@@ -45,7 +61,7 @@ class Create extends Component {
 
   render() {
     const { open, exercise: { title, time, description, phase, group } } = this.state
-    const { groups } = this.props
+    const { classes, groups } = this.props
 
     return (
       <Fragment>
@@ -63,12 +79,13 @@ class Create extends Component {
             <DialogContentText>
               Please fill out the form below.
             </DialogContentText>
-            <FormControl>
+            <form>
               <TextField
                 label="Title"
                 value={title}
                 onChange={this.handleChange('title')}
                 margin="normal"
+                className={classes.FormControl}
               /><br />
               <TextField
                 type='number'
@@ -79,6 +96,7 @@ class Create extends Component {
                 InputProps={{
                   startAdornment: <InputAdornment position="start">Minutes</InputAdornment>,
                 }}
+                className={classes.FormControl}
               /><br />
               <TextField
                 label="Description"
@@ -86,8 +104,11 @@ class Create extends Component {
                 onChange={this.handleChange('description')}
                 margin="normal"
                 multiline
+                className={classes.FormControl}
               /><br />
-              <FormControl>
+              <FormControl
+                className={classes.FormControl}
+              >
                 <InputLabel htmlFor="group">Training Type</InputLabel>
                 <Select
                   value={group}
@@ -98,13 +119,16 @@ class Create extends Component {
                       {group}
                     </MenuItem>
                   })}
-          </Select>
-        </FormControl>
-
-            </FormControl>
+                </Select>
+              </FormControl>
+            </form>
           </DialogContent>
           <DialogActions>
-            <Button color="primary" variant='raised' >
+            <Button 
+              color="primary" 
+              variant='raised' 
+              onClick={this.handleSubmit}
+            >
               Create
             </Button>
           </DialogActions>
@@ -115,4 +139,4 @@ class Create extends Component {
 } 
 
 
-export default Create
+export default withStyles(styles)(Create)
