@@ -34,8 +34,14 @@ class App extends Component {
     }))
   }
 
+  handleExerciseDelete = id => {
+    this.setState(({ exercises }) => ({ // 
+      exercises: exercises.filter(ex => ex.id !== id ) // filters out instances where the exercise id is the same as the id passed in
+    }))
+  }
+
   handleExerciseSelect = id => {
-    this.setState(({ exercises }) => ({ // grabs exercises from state as 'prevState' as setState is asynchronous and something else in the app may change state while we are calling it
+    this.setState(({ exercises }) => ({ // grabs exercises (an array of all the exercises) from state as 'prevState' as setState is asynchronous and something else in the app may change state while we are calling it
       selectedExercise: exercises.find(ex => ex.id === id)
     }))
   }
@@ -59,6 +65,7 @@ class App extends Component {
 
         <Exercises 
           exercises={exercises} 
+          onDelete={this.handleExerciseDelete}
           onSelect={this.handleExerciseSelect}
           selectedExercise={selectedExercise}
           selectedGroup={selectedGroup}
