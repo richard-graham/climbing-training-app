@@ -34,13 +34,11 @@ class Form extends Component {
   }
 
   handleSubmit = () => {
-    // TODO: Validate Form
-
-    const { exercise } = this.state
 
     this.props.onSubmit({
-      ...exercise,
-      id: exercise.title.toLowerCase().replace(/ /g, '-')
+      id: this.state.title.toLowerCase().replace(/ /g, '-'),
+      ...this.state
+      
     })
 
     this.setState({
