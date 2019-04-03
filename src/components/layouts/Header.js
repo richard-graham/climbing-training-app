@@ -9,17 +9,15 @@ const styles = {
   }
 }
 
-export default withStyles(styles)(({ classes, groups, onExerciseCreate }) => 
+export default withStyles(styles)(
+  ({ classes, onExerciseCreate }) => 
   <AppBar position="static">
     <Toolbar>
     <Typography variant="headline" color='inherit' className={classes.flex}>
       Dashboard
     </Typography>
 
-    <Create 
-      groups={groups}
-      onCreate={onExerciseCreate}
-    />
+    <Create onCreate={onExerciseCreate} />
     </Toolbar>
   </AppBar>
 )
