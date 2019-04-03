@@ -21,16 +21,10 @@ const styles = theme => ({
 class Form extends Component {
   state = this.getInitState()
 
-  getInitState() {
-    const { exercise } = this.props
-
-    return exercise ? exercise : {
-      title: '',
-      time: '',
-      description: '',
-      phase: '',
-      group: '',
-    }
+  componentWillReceiveProps = ({ exercise }) => {
+    this.setState({
+      ...exercise
+    })
   }
 
   handleChange = name => event => {
@@ -59,11 +53,22 @@ class Form extends Component {
         group: '',
       }
     })
+  }
 
+  getInitState() {
+    const { exercise } = this.props
+
+    return exercise ? exercise : {
+      title: '',
+      time: '',
+      description: '',
+      phase: '',
+      group: '',
+    }
   }
 
   render() {
-    const { classes, groups } = this.props,
+    const { classes, exercise, groups } = this.props,
           { title, time, description, phase, group } = this.state
     return (
       <form>
@@ -109,12 +114,16 @@ class Form extends Component {
           </Select>
         </FormControl>
         <br />
+        <br />
         <Button 
           color="primary" 
           variant='contained' 
           onClick={this.handleSubmit}
         >
-          Create
+          {exercise 
+          ? 'Edit' // if exercise exists then we are dealing with an existing exercise so need to edit
+          : 'Create'
+         }
         </Button>
       </form>
     )
