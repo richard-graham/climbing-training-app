@@ -41,7 +41,7 @@ class Form extends Component {
       
     })
 
-    this.setState(this.getInitState()) //clears out form 
+    this.setState(this.getInitState()) //clears out form
   }
 
   getInitState() {

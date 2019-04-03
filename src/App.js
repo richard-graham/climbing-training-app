@@ -35,10 +35,10 @@ class App extends Component {
   }
 
   handleExerciseDelete = id => {
-    this.setState(({ exercises }) => ({ 
+    this.setState(({ exercises, exercise, editMode }) => ({ 
       exercises: exercises.filter(ex => ex.id !== id ), // filters out instances where the exercise id is the same as the id passed in
-      editMode: false,
-      exercise: {}
+      editMode: exercise.id === id ? false : editMode, 
+      exercise: exercise.id === id ? {} : exercise // if deleting the currently selected exercise reset current exercise, if not carry on
     }))
   }
 
