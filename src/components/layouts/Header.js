@@ -1,11 +1,18 @@
 import React from 'react'
 import { AppBar, Toolbar, Typography } from '@material-ui/core'
 import Create from '../exercises/Dialog'
+import { withStyles } from '@material-ui/core/styles' 
 
-export default ({ groups, onExerciseCreate }) => 
+const styles = {
+  flex: {
+    flex: 1
+  }
+}
+
+export default withStyles(styles)(({ classes, groups, onExerciseCreate }) => 
   <AppBar position="static">
     <Toolbar>
-    <Typography variant="headline" color='inherit' style={{flex: 1}}>
+    <Typography variant="headline" color='inherit' className={classes.flex}>
       Dashboard
     </Typography>
 
@@ -15,3 +22,4 @@ export default ({ groups, onExerciseCreate }) =>
     />
     </Toolbar>
   </AppBar>
+)

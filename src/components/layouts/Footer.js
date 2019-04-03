@@ -18,7 +18,7 @@ export default withWidth()(
           value={index}
           onChange={onIndexSelect}
           indicatorColor="primary"
-          textColor="primary"
+          textColor="secondary"
           variant={width === 'xs' ? "scrollable" : null}
           centered={width !== 'xs' ? true : false}
         >

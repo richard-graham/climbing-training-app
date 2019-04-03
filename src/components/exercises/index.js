@@ -45,6 +45,7 @@ export default ({
           return !selectedGroup || selectedGroup === group // only display when selectedGroup is not specified (i.e the All tab is selected) OR selectedGroup and group are equal 
           ? <React.Fragment key={group} >
               <Typography
+                color='secondary'
                 variant='headline'
               >
                 {group}
@@ -59,10 +60,10 @@ export default ({
                     >
                       <ListItemText primary={title} />
                       <ListItemSecondaryAction>
-                      <IconButton onClick={() => onSelectEdit(id)} >
+                      <IconButton color='primary' onClick={() => onSelectEdit(id)} >
                           <Edit />
                         </IconButton>
-                        <IconButton onClick={() => onDelete(id)} >
+                        <IconButton color='primary' onClick={() => onDelete(id)} >
                           <Delete />
                         </IconButton>
                       </ListItemSecondaryAction>
@@ -79,8 +80,9 @@ export default ({
     <Grid item xs={12} sm={6}>
       <Paper style={styles.Paper}>
         <Typography
-          variant='display1'
+          color='secondary'
           gutterBottom
+          variant='display1'
           >
           {title}
         </Typography>
