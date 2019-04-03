@@ -15,6 +15,11 @@ class Create extends Component {
     open: false,
   }
 
+  handleFormSubmit = exercise => {
+    this.handleToggle()
+    this.props.onCreate(exercise)
+  }
+
   handleToggle = () => {
     this.setState({
       open: !this.state.open
@@ -23,7 +28,7 @@ class Create extends Component {
 
   render() {
     const { open } = this.state,
-          { groups, onCreate } = this.props
+          { groups } = this.props
 
     return (
       <Fragment>
@@ -34,7 +39,7 @@ class Create extends Component {
               open={open}
               onClose={this.handleToggle}
         >
-          <DialogTitle id="form-dialog-title">
+          <DialogTitle>
             Create a New Exercise
           </DialogTitle>
           <DialogContent>
@@ -43,7 +48,7 @@ class Create extends Component {
             </DialogContentText>
             <Form 
               groups={groups}
-              onSubmit={onCreate}
+              onSubmit={this.handleFormSubmit}
             />
           </DialogContent>
         </Dialog>

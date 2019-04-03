@@ -41,16 +41,7 @@ class Form extends Component {
       
     })
 
-    this.setState({
-      open: false,
-      exercise: {
-        title: '',
-        time: '',
-        description: '',
-        phase: '',
-        group: '',
-      }
-    })
+    this.setState(this.getInitState()) //clears out form 
   }
 
   getInitState() {
