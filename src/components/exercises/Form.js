@@ -11,7 +11,7 @@ import {
  import { withStyles } from '@material-ui/core/styles'
 
 
-const styles = theme => ({
+const styles = theme => console.log(theme) || ({
   FormControl: {
     width: 500,
 

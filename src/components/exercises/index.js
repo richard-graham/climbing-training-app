@@ -39,7 +39,7 @@ export default ({
   selectedGroup 
 }) =>
   <Grid container>
-    <Grid item sm>
+    <Grid item xs={12} sm={6} > 
       <Paper style={styles.Paper}>
         {exercises.map(([group, exercises]) => { // group = group name (i.e Conditioning & Flexibility) exercises = array of objects which are entries that have group value that equals group name
           
@@ -77,7 +77,7 @@ export default ({
         )}
     </Paper>
     </Grid>
-    <Grid item sm>
+    <Grid item xs={12} sm={6}>
       <Paper style={styles.Paper}>
         {editMode
         ? <Form 
