@@ -16,8 +16,6 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add'
 import { withStyles } from '@material-ui/core/styles'
-import Form from './Form'
-import { Consumer } from '../../context'
 
 const styles = theme => ({
   FormControl: {
@@ -79,43 +77,81 @@ class Create extends Component {
 
   render() {
     const { open, exercise: { title, time, description, group } } = this.state
-    const { classes } = this.props
+    const { classes, groups } = this.props
 
     return (
-      <Consumer>
-        {({ groups }) => 
-          <Fragment>
-            <Fab onClick={this.handleToggle} size='medium' color="secondary" >
-              <AddIcon />
-            </Fab>
-            <Dialog
-                  open={open}
-                  onClose={this.handleToggle}
-                  fullWidth
-                  maxWidth='xs'
-            >
-              <DialogTitle id="form-dialog-title">
-                Create a New Exercise
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText>
-                  Please fill out the form below.
-                </DialogContentText>
-                <Form groups={groups} onSubmit={this.handleSubmit} />
-              </DialogContent>
-              <DialogActions>
-                <Button 
-                  color="primary" 
-                  variant='contained' 
-                  onClick={this.handleSubmit}
+      <Fragment>
+        <Fab onClick={this.handleToggle} size='medium' color="secondary" >
+          <AddIcon />
+        </Fab>
+        <Dialog
+              open={open}
+              onClose={this.handleToggle}
+              fullWidth
+              maxWidth='xs'
+        >
+          <DialogTitle id="form-dialog-title">
+            Create a New Exercise
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Please fill out the form below.
+            </DialogContentText>
+            <form>
+              <TextField
+                label="Title"
+                value={title}
+                onChange={this.handleChange('title')}
+                margin="normal"
+                className={classes.FormControl}
+              /><br />
+              <TextField
+                type='number'
+                label="Time"
+                value={time}
+                onChange={this.handleChange('time')}
+                margin="normal"
+                InputProps={{
+                  startAdornment: <InputAdornment position="start">Minutes</InputAdornment>,
+                }}
+                className={classes.FormControl}
+              /><br />
+              <TextField
+                label="Description"
+                value={description}
+                onChange={this.handleChange('description')}
+                margin="normal"
+                multiline
+                className={classes.FormControl}
+              /><br />
+              <FormControl
+                className={classes.FormControl}
+              >
+                <InputLabel htmlFor="group">Training Type</InputLabel>
+                <Select
+                  value={group}
+                  onChange={this.handleChange('group')}
                 >
-                  Create
-                </Button>
-              </DialogActions>
-            </Dialog>
-          </Fragment>
-        }
-      </Consumer>
+                  {groups.map(group => {
+                    return <MenuItem value={group} key={group} >
+                      {group}
+                    </MenuItem>
+                  })}
+                </Select>
+              </FormControl>
+            </form>
+          </DialogContent>
+          <DialogActions>
+            <Button 
+              color="primary" 
+              variant='contained' 
+              onClick={this.handleSubmit}
+            >
+              Create
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Fragment>
     )
   }
 } 

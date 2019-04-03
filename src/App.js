@@ -3,8 +3,7 @@ import './App.css';
 import { Header, Footer } from './components/layouts'
 import Exercises from './components/exercises'
 import { groups, exercises } from './store'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import { Provider } from './context'
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 class App extends Component {
@@ -13,12 +12,8 @@ class App extends Component {
     exercise: {},
   }
 
-  getContext = () => ({
-    groups,
-    ...this.state
-  })
-
   getExercisesByGroups() {
+
     return Object.entries( 
         this.state.exercises.reduce((exercises, exercise) => { 
           const { group } = exercise
@@ -26,6 +21,7 @@ class App extends Component {
           exercises[group] = exercises[group] // Check to see if exercise group exists in array and acts accordingly
             ? [...exercises[group], exercise] 
             : [exercise] 
+
           return exercises // creates an object where the key is the group and the value is an array of the objects that apply to it
       }, {})
     )
@@ -83,31 +79,30 @@ class App extends Component {
     { editMode, exercise, selectedGroup } = this.state
     
     return (
-      <Provider value={this.getContext()}>
-        <Fragment>
-          <CssBaseline />
-          <Header 
-            onExerciseCreate={this.handleExerciseCreate}
-          />
-          <Exercises 
-            editMode={editMode}
-            exercises={exercises} 
-            groups={groups}
-            onDelete={this.handleExerciseDelete}
-            onEdit={this.handleExerciseEdit}
-            onSelect={this.handleExerciseSelect}
-            onSelectEdit={this.handleExerciseSelectEdit}
-            exercise={exercise}
-            selectedGroup={selectedGroup}
-          />
-          
-          <Footer 
-            selectedGroup={selectedGroup}
-            groups={groups}
-            onSelect={this.handleGroupSelect}
-          />
-        </Fragment>
-      </Provider>
+      <Fragment>
+        <CssBaseline />
+        <Header 
+          groups={groups}
+          onExerciseCreate={this.handleExerciseCreate}
+        />
+        <Exercises 
+          editMode={editMode}
+          exercises={exercises} 
+          groups={groups}
+          onDelete={this.handleExerciseDelete}
+          onEdit={this.handleExerciseEdit}
+          onSelect={this.handleExerciseSelect}
+          onSelectEdit={this.handleExerciseSelectEdit}
+          exercise={exercise}
+          selectedGroup={selectedGroup}
+        />
+        
+        <Footer 
+          selectedGroup={selectedGroup}
+          groups={groups}
+          onSelect={this.handleGroupSelect}
+        />
+      </Fragment>
     );
   }
 }
