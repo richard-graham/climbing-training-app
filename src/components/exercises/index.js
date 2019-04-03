@@ -16,7 +16,6 @@ import Form from './Form'
 const styles  = {
   Paper: {
     padding: 10,
-    margin: 10,
     height: 690,
     overflowY: 'auto'
   }
@@ -79,27 +78,24 @@ export default ({
     </Grid>
     <Grid item xs={12} sm={6}>
       <Paper style={styles.Paper}>
+        <Typography
+          variant='display1'
+          gutterBottom
+          >
+          {title}
+        </Typography>
         {editMode
         ? <Form 
             exercise={exercise}
             groups={groups} 
             onSubmit={onEdit}
           />
-        : <React.Fragment>
-            <Typography
-              variant='display1'
-              >
-              {title}
-            </Typography>
-            <Typography
-              variant='subheading'
-              style={{marginTop: 20}}
-              >
-              {description}
-            </Typography>
-          </React.Fragment>
+        : <Typography
+            variant='subheading'
+            >
+            {description}
+          </Typography>
         }
-        
       </Paper>
     </Grid>
   </Grid>

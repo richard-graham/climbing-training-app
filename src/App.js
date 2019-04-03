@@ -3,6 +3,8 @@ import './App.css';
 import { Header, Footer } from './components/layouts'
 import Exercises from './components/exercises'
 import { groups, exercises } from './store'
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 
 class App extends Component {
   state = {
@@ -78,6 +80,7 @@ class App extends Component {
     
     return (
       <Fragment>
+        <CssBaseline />
         <Header 
           groups={groups}
           onExerciseCreate={this.handleExerciseCreate}

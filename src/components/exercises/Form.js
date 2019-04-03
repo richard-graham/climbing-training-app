@@ -8,15 +8,7 @@ import {
   Select,
   Button
  } from '@material-ui/core'
- import { withStyles } from '@material-ui/core/styles'
 
-
-const styles = theme => console.log(theme) || ({
-  FormControl: {
-    width: 500,
-
-  }
-})
 
 class Form extends Component {
   state = this.getInitState()
@@ -57,8 +49,8 @@ class Form extends Component {
   }
 
   render() {
-    const { classes, exercise, groups } = this.props,
-          { title, time, description, phase, group } = this.state
+    const { exercise, groups } = this.props,
+          { title, time, description, group } = this.state
     return (
       <form>
         <TextField
@@ -66,7 +58,7 @@ class Form extends Component {
           value={title}
           onChange={this.handleChange('title')}
           margin="normal"
-          className={classes.FormControl}
+          fullWidth
         /><br />
         <TextField
           type='number'
@@ -77,7 +69,7 @@ class Form extends Component {
           InputProps={{
             startAdornment: <InputAdornment position="start">Minutes</InputAdornment>,
           }}
-          className={classes.FormControl}
+          fullWidth
         /><br />
         <TextField
           label="Description"
@@ -85,10 +77,10 @@ class Form extends Component {
           onChange={this.handleChange('description')}
           margin="normal"
           multiline
-          className={classes.FormControl}
+          fullWidth
         /><br />
         <FormControl
-          className={classes.FormControl}
+          fullWidth
         >
           <InputLabel htmlFor="group">Training Type</InputLabel>
           <Select
@@ -119,4 +111,4 @@ class Form extends Component {
   }
 }
 
-export default withStyles(styles)(Form)
+export default Form
